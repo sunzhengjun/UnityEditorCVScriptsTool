@@ -1,0 +1,27 @@
+{
+  "name": "com.playfreely.codetemplate",
+  "displayName": "CV Scripts Tool (代码模板/复制工具)",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "在 Unity 编辑器中管理与快速复制代码模板，支持搜索、排序、示例导入等。",
+  "author": {
+    "name": "PlayFreely",
+    "url": "https://github.com/<yourname>"
+  },
+  "license": "MIT",
+  "documentationUrl": "https://github.com/<yourname>/<your-repo>#readme",
+  "changelogUrl": "https://github.com/<yourname>/<your-repo>/releases",
+  "keywords": [
+    "unity",
+    "editor",
+    "productivity",
+    "templates"
+  ],
+  "samples": [
+    {
+      "displayName": "Starter Library",
+      "description": "一个示例模板库（导入后会在工程 Assets 中得到 .asset）。",
+      "path": "Samples~/Starter Library"
+    }
+  ]
+}

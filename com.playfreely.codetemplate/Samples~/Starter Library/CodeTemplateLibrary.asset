@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a455fb3582123a641bb47b5955bebcaf, type: 3}
+  m_Name: CodeTemplateLibrary
+  m_EditorClassIdentifier: 
+  templates:
+  - TemplateName: "\u5237\u65B0\u8D27\u5E01"
+    CodeContent: "\n// \u5237\u65B0\u8D27\u5E01\n// \u4E00\u822C\u6765\u8BF4\u5728OnInit\u3001OnDestroyObject\u4E2D\u6DFB\u52A0\uFF0C\u6839\u636E\u9700\u6C42\u6709\u4E9B\u9700\u8981\u5728OnOpen\u3001OnClose\u4E2D\u6DFB\u52A0\n\n\nprotected
+      override void OnInit(object userdata)\n{\n    base.OnInit(userdata);\n    GetBindComponents(ComponentTool);\n\n\n   
+      //\u76D1\u542C\u5237\u65B0\u94B1\u5305\u4FE1\u606F\n    HotfixEntry.Event.Subscribe(UpdateUserPropertyEventArgs.EventId,
+      UpdateUserProperty);\n}\n\n\nprotected override void OnDestroyObject()\n{\n\n   
+      //\u754C\u9762\u9500\u6BC1\uFF0C\u53D6\u6D88\u76D1\u542C\u5237\u65B0\u94B1\u5305\u4FE1\u606F\n   
+      if (HotfixEntry.Event.Check(UpdateUserPropertyEventArgs.EventId, UpdateUserProperty))\n   
+      {\n        HotfixEntry.Event.Unsubscribe(UpdateUserPropertyEventArgs.EventId,
+      UpdateUserProperty);\n    }\n\n    base.OnDestroyObject();\n}\n\n\n//\u5237\u65B0\u94B1\u5305\u4FE1\u606F\u76D1\u542C\u65B9\u6CD5\nprivate
+      void UpdateUserProperty(object userData, HotfixGameEventArgs e)\n{\n    RefreshMyCurrency();\n}\n\n\n\n//
+      \u6839\u636E\u9700\u6C42\uFF0C\u5237\u65B0\u5BF9\u5E94\u8D27\u5E01\n\nprivate
+      void RefreshMyCurrency()\n{\n    //\u5237\u65B0\u5929\u5143\u77F3\n    m_Txt_MyTianYuanShi.text
+      = PlayFreelyXiYouGameData.Instance.UserData.StoneAmount\n    .ToString();\n\n   
+      //\u5237\u65B0\u91D1\u8749\u6756\n    m_Txt_MyChanZhang.text = PlayFreelyXiYouGameData.Instance.UserData.ZenStaff.ToString();\n}\n\n\n//
+      \u5728\u5408\u9002\u7684\u65F6\u673A\u8C03\u7528\u5C01\u88C5\u597D\u7684\u5168\u5C40\u65B9\u6CD5\u8BF7\u6C42\u670D\u52A1\u5668\u5237\u65B0\u94B1\u5305\uFF0C\u6BD4\u5982\u8D2D\u4E70\u7269\u54C1\u670D\u52A1\u5668\u8FD4\u56DE\u6210\u529F\u540E\nprivate
+      void OnCoalesceSuccess(string success, object userData)\n{\n\n    //\u8BF7\u6C42\u670D\u52A1\u5668\u5237\u65B0\u94B1\u5305\n   
+      PlayFreelyXiYouGameData.Instance.RestRequestWalletInfo();\n}"
+  - TemplateName: "\u65B0\u7248\u7F51\u7EDC\u63A5\u53E3\u8C03\u7528"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u63D0\u793A\u6587\u672C\u7A97\u53E3"
+    CodeContent: "\n\n\n// \u6253\u5F00\u6E38\u620F\u63D0\u793A\u6587\u672C\u7A97\u53E3\uFF0C\u5E76\u63D0\u793A\u4E00\u6BB5\u8BDD\n\n\n//
+      \u793A\u4F8B1\n\nPlayFreelyXiYouGameData.Instance.OpenTipsPopUpWindow($\"\u6700\u5C0F\u4E2A\u6570\u4E3A{mini}\u6700\u5927\u4E2A\u6570{max}\");\n\n\n\n\n//
+      \u793A\u4F8B2\n\nPlayFreelyXiYouGameData.Instance.OpenTipsPopUpWindow(\"\u8F93\u5165\u5408\u6CD5\u6570\u503C\");\n\n\n\n\n//
+      \u793A\u4F8B3\n\nPlayFreelyXiYouGameData.Instance.OpenTipsPopUpWindow(RichManConfig.TipRolling);"
+  - TemplateName: "\u6253\u5F00\u5E2E\u52A9\u754C\u9762"
+    CodeContent: "\n\n\n\n// \u6253\u5F00\u5E2E\u52A9\u754C\u9762\n\nUIExtension.OpenHelpUIForm(HelpDesConfigId.EveryDaySignOnGame);\n"
+  - TemplateName: "\u5207\u6362Spine\u52A8\u753B\uFF08\u95EA\u5E27\u5904\u7406\uFF09"
+    CodeContent: "\n\n#region \u95EA\u5E27\u7EC8\u7ED3\u8005\uFF08idle1 \u2192 idle\uFF09(AI
+      \u4F18\u5316\u65B9\u6848\u5F85\u5B9A)\nprivate void PlayXiShouIdleAnimation()\n{\n   
+      if (m_USpine_XiShou.CurrentAnimationName != \"idle1\")\n    {\n        m_USpine_XiShou.PlayAnimation(\"idle\",
+      true);\n        return;\n    }\n\n    SkeletonGraphic sg = m_USpine_XiShou.Skeleton;\n   
+      if (sg == null)\n    {\n        m_USpine_XiShou.PlayAnimation(\"idle\", true);\n       
+      return;\n    }\n\n    var state = sg.AnimationState;\n    var skel = sg.Skeleton;\n   
+      TrackEntry entry = state.SetAnimation(0, \"idle\", true);\n    entry.MixDuration
+      = 0f;\n\n    state.Apply(skel);\n    skel.UpdateWorldTransform();\n    sg.Update(0f);\n\n   
+      m_USpine_XiShou.PlayAnimation(\"idle\", true);\n}\n#endregion"
+  - TemplateName: "\u65E0\u9650\u6ED1\u52A8\u5217\u8868\uFF08\u5206\u9875\uFF09"
+    CodeContent: "//\u6709\u7A7A\u518D\u5199\n\n\nprivate readonly List<MyHistoryItem>
+      m_RecordData = new List<MyHistoryItem>();"
+  - TemplateName: "\u65E0\u9650\u6ED1\u52A8\u5217\u8868\uFF08\u4E0D\u5206\u9875\uFF09"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u65E0\u9650\u6ED1\u52A8\u5217\u8868\u5B50\u7269\u4F53"
+    CodeContent: "\n// \u65E0\u9700\u591A\u8A00\uFF0C\u65B0\u5EFA\u811A\u672CCopy\u8FDB\u53BB\n\nusing
+      PlayFreelyXiYou.BuiltinRuntime;\r\n\r\nnamespace PlayFreelyXiYou.HotfixLogic\r\n{\r\n\n   
+      public partial class TemplateItem : RecyclingListViewBase\r\n    {\r\n       
+      private BuiltinComponentAutoBindTool m_BindTool;\r\n        \r\n        private
+      bool m_Initialized = false;\r\n        \r\n        public void UpdateItem()\r\n       
+      {\r\n            if (!m_Initialized)\r\n            {\r\n                m_BindTool
+      = GetComponent<BuiltinComponentAutoBindTool>();\r\n                GetBindComponents(m_BindTool);\r\n               
+      m_Initialized = true;\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+  - TemplateName: "\u51CF\u53F7\u3001\u52A0\u53F7\u3001\u8F93\u5165\u6846"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u6570\u5B57\u8DF3\u52A8\u52A8\u753B\u5DE5\u5177"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u827A\u672F\u5B57\u5DE5\u5177"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u64AD\u653E\u97F3\u4E50"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u64AD\u653E\u58F0\u97F3"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u8BBE\u7F6E\u5218\u6D77\u5C4F\u5B89\u5168\u533A"
+    CodeContent: "\n// \u8BBE\u7F6E\u5218\u6D77\u5C4F\u5B89\u5168\u533A\n\n\nprotected
+      override void OnInit(object userdata)\n{\n    base.OnInit(userdata);\n    GetBindComponents(ComponentTool);\n\n\n   
+      // \u83B7\u53D6\u9700\u8981\u8BBE\u7F6E\u7684UI\u8282\u70B9\u7684Trans, \u5728OnInit\u65B9\u6CD5\u4E2D\u52A0\u5165\u4E0B\u9762\u4EE3\u7801\n\n   
+      UIExtension.ApplySafeAreaPadding(m_Trans_LeftTopNode);\n    UIExtension.ApplySafeAreaPadding(m_Trans_RightTopNode);\n}"
+  - TemplateName: "\u52A8\u6001\u52A0\u8F7D\u56FE\u7247"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "Spine\u52A8\u753B\u5E38\u7528\u4EE3\u7801"
+    CodeContent: "\n\n// \u64AD\u653E\u52A8\u753B(\u5FAA\u73AF)\nm_USpine_RealMonkey.PlayAnimation(\"effect_4\",
+      true);\n\n\n// \u64AD\u653E\u52A8\u753B(\u53EA\u64AD\u653E\u4E00\u6B21)\nm_USpine_RealMonkey.PlayAnimation(\"effect_4\");"
+  - TemplateName: "Dotween\u52A8\u753B\u5E38\u7528\u4EE3\u7801"
+    CodeContent: "// \u5728\u6B64\u8F93\u5165\u6A21\u677F\u4EE3\u7801\n"
+  - TemplateName: "\u81EA\u9002\u5E94\u8F93\u5165\u6846"
+    CodeContent: "\n\n\nprotected override void OnInit(object userdata)\n{\n    base.OnInit(userdata);\n   
+      GetBindComponents(ComponentTool);\n\n    // \u9996\u5148\u9700\u8981\u5728OnInit\u4E2D\u6CE8\u518C\u8F93\u5165\u76D1\u542C\u4E8B\u4EF6\n   
+      InitInputListener();\n}\n\n\n// \u6CE8\u518C\u8F93\u5165\u76D1\u542C\u4E8B\u4EF6\nprivate
+      void InitInputListener()\n{\n    m_Input_Count.onValueChanged.AddListener(InputChanged);\n}\n\n\n\nprivate
+      void InputChanged(string value)\n{\n\n    // \u5F3A\u5236\u5237\u65B0\u5E03\u5C40\uFF08\u81EA\u9002\u5E94\u8F93\u5165\u6846\u6700\u5173\u952E\u7684\u4EE3\u7801\uFF0C\u8FD9\u4E2A\u5FC5\u987B\u52A0\uFF09\n   
+      LayoutRebuilder.ForceRebuildLayoutImmediate(m_Input_StorageCount.GetComponent<RectTransform>());\n}"

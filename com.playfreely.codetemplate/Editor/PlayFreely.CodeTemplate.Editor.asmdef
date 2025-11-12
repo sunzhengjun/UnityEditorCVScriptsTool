@@ -1,0 +1,10 @@
+{
+  "name": "PlayFreely.CodeTemplate.Editor",
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true,
+  "references": [],
+  "overrideReferences": false,
+  "noEngineReferences": false
+}
